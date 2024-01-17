@@ -75,7 +75,7 @@ Go C3T, Beat Airforce
         print(colored(c, colors[index % len(colors)]), end='')
         
     parser = argparse.ArgumentParser()
-    parser.add_argument('--db', type=str, default='./bemuda_state.db')
+    parser.add_argument('--db', type=str, default='./bermuda_state.db')
     args = parser.parse_args()
     # check if the daemon is running
     if os.path.exists('/tmp/bemuda.pid'):
@@ -84,7 +84,7 @@ Go C3T, Beat Airforce
         print("Daemon not running, launching...")
         pid = os.fork()
         if pid == 0:
-            with daemon.DaemonContext(pidfile=daemon.pidlockfile.PIDLockFile('/tmp/bemuda.pid')):
+            with daemon.DaemonContext(pidfile=daemon.pidfile.PIDLockFile('/tmp/bemuda.pid')):
                 listener()
         
     # Connect to the database
