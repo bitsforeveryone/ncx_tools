@@ -13,7 +13,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     # Check if the file exists
-    if not os.path.exists(sys.argv[1]) and os.path.exists(sys.argv[2]):
+    if not os.path.exists(sys.argv[1]):
         print("Error: File '{}' not found".format(sys.argv[1]))
         sys.exit(2)
 
