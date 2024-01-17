@@ -35,6 +35,7 @@ def listener():
 def signal_handler(sig, frame):
     print('\nControl-C detected, exiting...')
     # Close the database connection
+    conn.commit()
     conn.close()
     # Exit the program
     exit(0)
@@ -145,3 +146,6 @@ Go C3T, Beat Airforce
             list_victims()
         else:
             print(f"Unknown command {command[0]}")
+        #commit changes
+        conn.commit()
+    conn.close()
