@@ -17,21 +17,27 @@ if __name__ == "__main__":
         print("Error: File '{}' not found".format(sys.argv[1]))
         sys.exit(2)
 
-    usr = open(sys.argv[1], 'r').readlines()
+    # check if program is being run as root
+    if os.geteuid() != 0:
+        print("Error: Run as root")
+        sys.exit(3)
+
+    usr = open(sys.argv[1], 'r')
+    usrs = usr.readlines()
 
     new_password = input("Enter new password: ")
     second_password = input("Enter new password again: ")
     if new_password != second_password:
         print("Passwords do not match")
         sys.exit(1)
-    for i in range(len(usr)):
-        if input(f"Would you like to change {usr[i].strip()}'s password? (y/n)\n") == 'y':
-            os.system("passwd {} {}".format(
-                usr[i].strip(),
-                new_password
+    for i in range(len(usrs)):
+        if input(f"Would you like to change {usrs[i].strip()}'s password? (y/n)\n") == 'y':
+            os.system("yes {} | sudo passwd {}".format(
+                new_password,
+                usrs[i].strip()
                 )
             )
         else:
-            print(f"{usr[i]}'s password not changed")
+            print(f"{usrs[i]}'s password not changed")
 
     usr.close()
