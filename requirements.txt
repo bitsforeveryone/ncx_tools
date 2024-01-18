@@ -2,3 +2,5 @@ termcolor
 asyncio
 sqlalchemy
 python-daemon
+aioconsole
+aiochannel

