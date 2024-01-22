@@ -1,5 +1,5 @@
 bermuda_state.db
-
+payloads/revshell/kworker
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
