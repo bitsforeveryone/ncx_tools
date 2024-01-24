@@ -1,6 +1,10 @@
 bermuda_state.db
 payloads/revshell/kworker
 .vscode/
+c3t_master_key
+c3t_master_key.pub
+redis_password.txt
+redis-data/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
