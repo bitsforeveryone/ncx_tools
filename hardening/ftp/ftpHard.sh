@@ -7,15 +7,6 @@ then
     exit
 fi
 
-#!/bin/bash
-
-# Check if vsftpd is installed
-if ! command -v vsftpd &> /dev/null
-then
-    echo "FTP not present on this machine."
-    exit
-fi
-
 # Backup the original configuration file
 cp /etc/vsftpd.conf /etc/vsftpd.conf.bak
 
