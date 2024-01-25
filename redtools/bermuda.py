@@ -176,7 +176,23 @@ Go C3T, Beat Airforce
             except Exception as e:
                 print(f"Error running command: {e}")
         elif command[0] == "help":
-            print("Available commands: help, exit")
+            print("Available commands: help, exit, mass_command, shells, interact, attach, connect, upload, download")
+            print("help: print this help message") 
+            print("exit: exit the server")
+            print("mass_command: run a command on all the reverse shells that match the given IP range")
+            print("\tUsage: mass_command (target ip glob range) (command) ...")
+            print("shells: list all the reverse shells that are connected")
+            print("interact: interact with a reverse shell")
+            print("\tUsage: interact (shell_ip:shell_port)")
+            print("attach: interact with a reverse shell")
+            print("\tUsage: attach (shell_ip:shell_port)")
+            print("connect: interact with a reverse shell")
+            print("\tUsage: connect (shell_ip:shell_port)")
+            print("upload: upload a file to a reverse shell")
+            print("\tUsage: upload (ip glob) (filename)")
+            print("download: download a file from a reverse shell")
+            print("\tUsage: download (shell_ip:shell_port) (filename) [directory]")
+
         elif command[0] == "exit":
             break
         elif command[0] == "mass_command":

@@ -4,7 +4,7 @@ sys.path.insert(0, ".")
 import ncx_db
 import argparse 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Add a target to the target list")
+    parser = argparse.ArgumentParser(description="Print a list of targets to use in custom scripts")
     #seperator
     parser.add_argument("-s", "--seperator", help="The seperator to use when parsing the target", default=" ")
     #print a newline after each target
