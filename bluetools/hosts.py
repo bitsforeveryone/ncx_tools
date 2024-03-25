@@ -96,4 +96,3 @@ while True:
             f.write(new_config)
             print("Config file generated successfully and installed. you can now use ssh to connect to the hosts with the following command: ssh <ip>, no need to specify the user or the key")
             print(new_config + "\n")
-        

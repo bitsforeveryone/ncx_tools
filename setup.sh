@@ -24,6 +24,16 @@ if ! [ -x "$(command -v docker)" ]; then
   systemctl start docker
 fi
 
+sudo apt install -y python3-full python3-pip python3-venv
+#create the virtual environment
+python3 -m venv venv
+#activate the virtual environment
+source venv/bin/activate
+#install the requirements
+pip install -r requirements.txt
+#print a message to the user saying that they must activate the virtual environment every time they want to run the tool
+echo "You must activate the virtual environment every time you want to run the tools here. Run 'source venv/bin/activate' to activate the virtual environment."
+
 # ask if the user is the host or the client
 echo "Are you the host or the client? Only one person on the team should be the host."
 select yn in "Host" "Client"; do
@@ -79,7 +89,17 @@ select yn in "Host" "Client"; do
           echo "Downloading the master key from the redis server"
           sudo sudo docker run --network host --rm redis redis-cli -p 17139 -h $HOST_IP -p $REDIS_PORT -a $REDIS_PASSWORD get c3t_master_key_pub > ./c3t_master_key.pub
           sudo docker run --network host --rm redis redis-cli -p 17139 -h $HOST_IP -p $REDIS_PORT -a $REDIS_PASSWORD get c3t_master_key_priv > ./c3t_master_key
-          #set the permissions on the master key
+          #ask the user if they want to run redtools/area_of_operations.py to set the enemy and friendly hosts
+          echo "Do you want to run redtools/area_of_operations.py to set the enemy and friendly hosts? [y/n]"
+          select yn in "Yes" "No"; do
+            case $yn in
+              Yes ) 
+                python redtools/area_of_operations.py
+                break;;
+              No ) 
+                break;;
+            esac
+          done
           break;;
     esac
 done

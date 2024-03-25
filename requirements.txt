@@ -4,3 +4,4 @@ sqlalchemy
 python-daemon
 aioconsole
 aiochannel
+redis
