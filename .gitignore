@@ -5,6 +5,8 @@ c3t_master_key
 c3t_master_key.pub
 .redis_env
 redis-data/
+venv/
+ncx_database/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
