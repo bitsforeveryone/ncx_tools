@@ -65,7 +65,15 @@ select yn in "Host" "Client"; do
           echo "Moving the master key to the redis server"
           sudo docker run --network host --rm redis redis-cli -h localhost -a $REDIS_PASSWORD set c3t_master_key_pub "$(cat ./c3t_master_key.pub)"
           sudo docker run --network host --rm redis redis-cli -h localhost -a $REDIS_PASSWORD set c3t_master_key_priv "$(cat ./c3t_master_key)"
-          #set the permissions on the master key
+          select yn in "Yes" "No"; do
+            case $yn in
+              Yes ) 
+                python redtools/area_of_operations.py
+                break;;
+              No ) 
+                break;;
+            esac
+          done
           break;;
         Client ) 
           echo "You are the client"; 
@@ -91,15 +99,6 @@ select yn in "Host" "Client"; do
           sudo docker run --network host --rm redis redis-cli -p 17139 -h $HOST_IP -p $REDIS_PORT -a $REDIS_PASSWORD get c3t_master_key_priv > ./c3t_master_key
           #ask the user if they want to run redtools/area_of_operations.py to set the enemy and friendly hosts
           echo "Do you want to run redtools/area_of_operations.py to set the enemy and friendly hosts? [y/n]"
-          select yn in "Yes" "No"; do
-            case $yn in
-              Yes ) 
-                python redtools/area_of_operations.py
-                break;;
-              No ) 
-                break;;
-            esac
-          done
           break;;
     esac
 done
