@@ -1,0 +1,42 @@
+- name: Download shadow and passwd files from all hosts
+  hosts: all
+  become: yes
+  tasks:
+    - name: Fetch shadow file
+      fetch:
+        src: /etc/shadow
+        dest: ./artifacts/remote_shadow_{{ inventory_hostname }}
+        flat: yes
+
+    - name: Fetch passwd file
+      fetch:
+        src: /etc/passwd
+        dest: ./artifacts/remote_passwd_{{ inventory_hostname }}
+        flat: yes
+- name: Download /etc/sshd_config file from all hosts
+  hosts: all
+  become: yes
+  tasks:
+    - name: Fetch sshd_config file
+      fetch:
+        src: /etc/ssh/sshd_config
+        dest: ./artifacts/remote_sshd_config_{{ inventory_hostname }}
+        flat: yes
+- name: Download /etc/sudoers file from all hosts
+  hosts: all
+  become: yes
+  tasks:
+    - name: Fetch sudoers file
+      fetch:
+        src: /etc/sudoers
+        dest: ./artifacts/remote_sudoers_{{ inventory_hostname }}
+        flat: yes
+- name: Download /etc/group file from all hosts
+  hosts: all
+  become: yes
+  tasks:
+    - name: Fetch group file
+      fetch:
+        src: /etc/group
+        dest: ./artifacts/remote_group_{{ inventory_hostname }}
+        flat: yes

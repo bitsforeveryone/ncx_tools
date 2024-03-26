@@ -1,0 +1,10 @@
+- name: Drop ICMP traffic
+  hosts: all
+  become: yes
+  tasks:
+    - name: Drop ICMP traffic
+      iptables:
+        chain: INPUT
+        protocol: icmp
+        jump: DROP
+        state: present

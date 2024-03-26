@@ -1,0 +1,11 @@
+- name: Get list of setuid binaries
+  hosts: all
+  become: yes
+  tasks:
+    - name: Find setuid binaries
+      shell: find / -type f -perm /4000 2>/dev/null
+      ignore_errors: yes
+      register: setuid_binaries
+    - name: Save setuid binaries locally
+      local_action:
+        copy content="{{ setuid_binaries.stdout }}" dest="./artifacts/setuid_binaries_{{ inventory_hostname }}"

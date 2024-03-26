@@ -1,0 +1,30 @@
+- name: Fetch list of open TCP and UDP ports using lsof
+  hosts: all
+  become: yes
+  tasks:
+    - name: Get list of open TCP ports
+      shell: lsof -i -P -n | grep LISTEN
+      register: open_tcp_ports
+    - name: Create local file on master node
+      ansible.builtin.file:
+        path: "./artifacts/open_tcp_ports_{{ inventory_hostname }}"
+        state: touch
+      delegate_to: localhost
+    - name: Save open TCP ports locally
+      ansible.builtin.copy:
+        content: "{{ open_tcp_ports.stdout }}"
+        dest: "./artifacts/open_tcp_ports_{{ inventory_hostname }}"
+      delegate_to: localhost
+    - name: Get list of open UDP ports
+      shell: lsof -i -P -n | grep UDP
+      register: open_udp_ports
+    - name: Create local file on master node
+      ansible.builtin.file:
+        path: "./artifacts/open_udp_ports_{{ inventory_hostname }}"
+        state: touch
+      delegate_to: localhost
+    - name: Save open UDP ports locally
+      ansible.builtin.copy:
+        content: "{{ open_udp_ports.stdout }}"
+        dest: "./artifacts/open_udp_ports_{{ inventory_hostname }}"
+      delegate_to: localhost

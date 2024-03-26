@@ -1,0 +1,16 @@
+- name: Accept ICMP traffic
+  hosts: all
+  become: yes
+  tasks:
+    - name: Accept ICMP traffic
+      iptables:
+        chain: INPUT
+        protocol: icmp
+        jump: ACCEPT
+        state: present
+    - name: Remove ICMP drop rule
+      iptables:
+        chain: INPUT
+        protocol: icmp
+        jump: DROP
+        state: absent

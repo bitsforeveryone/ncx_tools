@@ -1,0 +1,12 @@
+- name: Disable cron with systemctl
+  hosts: all
+  become: yes
+  tasks:
+    - name: Stop the cron service
+      service:
+        name: cron
+        state: stopped
+    - name: Disable the cron service
+      service:
+        name: cron
+        enabled: no

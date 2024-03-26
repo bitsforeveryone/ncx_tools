@@ -1,0 +1,14 @@
+- name: Get list of files named flag.txt
+  hosts: all
+  become: yes
+  tasks:
+    - name: Find flag.txt files
+      shell: find / -name flag.txt 2>/dev/null
+      ignore_errors: yes
+      register: flag_files
+    - name: Append the list to the end of the file
+      local_action:
+        module: lineinfile
+        path: "./artifacts/flag_files"
+        line: "{{ flag_files.stdout }}"
+        create: yes

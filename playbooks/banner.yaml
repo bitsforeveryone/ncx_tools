@@ -1,0 +1,25 @@
+- name: Create .hushlogin file
+  hosts: all
+  become: no
+  tasks:
+    - name: Create .hushlogin file
+      ansible.builtin.file:
+        path: ~/.hushlogin
+        state: touch
+- name: Install c3t ssh banner
+  hosts: all
+  become: yes
+  tasks:
+    - name: Copy banner file to remote hosts
+      ansible.builtin.copy:
+        src: ./artifacts/banner
+        dest: /etc/issue.net
+    - name: Update sshd_config to display banner
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        line: "Banner /etc/issue.net"
+        state: present
+    - name: Restart sshd service
+      ansible.builtin.systemd:
+        name: sshd
+        state: restarted
