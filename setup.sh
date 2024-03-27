@@ -33,7 +33,8 @@ source venv/bin/activate
 pip install -r requirements.txt
 #print a message to the user saying that they must activate the virtual environment every time they want to run the tool
 echo "You must activate the virtual environment every time you want to run the tools here. Run 'source venv/bin/activate' to activate the virtual environment."
-
+#pause the script to allow the user to read the message
+read -p "Press enter to continue"
 # ask if the user is the host or the client
 echo "Are you the host or the client? Only one person on the team should be the host."
 select yn in "Host" "Client"; do
