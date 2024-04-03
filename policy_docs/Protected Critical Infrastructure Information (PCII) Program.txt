@@ -1,0 +1,98 @@
+Source : https://www.cisa.gov/resources-tools/programs/protected-critical-infrastructure-information-pcii-program
+
+Protected Critical Infrastructure Information (PCII) Program
+
+An information-protection program to enhance information sharing between the private sector and the government.
+
+RELATED TOPICS: CRITICAL INFRASTRUCTURE SECURITY AND RESILIENCE
+
+Overview
+Congress created the Protected Critical Infrastructure Information (PCII) Program under the Critical Infrastructure Information Act of 2002 (CII Act) to protect information voluntarily shared with the government on the security of private and state/local government critical infrastructure. Title 6 Code of Federal Regulations (CFR) part 29, Procedures for Handling Critical Infrastructure Information; Final Rule, establishes uniform procedures on the receipt, validation, handling, storage, marking, and use of critical infrastructure information (CII) voluntarily submitted to the Cybersecurity and Infrastructure Security Agency (CISA) of the Department of Homeland Security (DHS).
+
+The protections offered by the PCII Program enhance the voluntary sharing of CII between infrastructure owners and operators and the government. The PCII Program protections provide homeland security partners confidence that sharing their information with the government will not expose sensitive or proprietary data to public disclosure.
+
+
+How Does the PCII Program Support Infrastructure Protection?
+The PCII Program protects information from public disclosure while allowing DHS/CISA and other federal, state, and local government security analysts to:
+
+Analyze and secure critical infrastructure and protected systems
+Identify vulnerabilities and develop risk assessments
+Enhance preparedness, resilience, and recovery measures
+How Does PCII Protect My Information?
+Authorities Governing PCII: The CII Act of 2002 and its implementing regulation, 6 CFR part 29, “Procedures for Handling Critical Infrastructure Information” ensure critical infrastructure information voluntarily shared with the government and validated as PCII by DHS/CISA is protected from:
+
+Disclosure from Freedom of Information Act (FOIA) requests 
+Disclosure under state and local disclosure laws 
+Use in regulatory proceedings 
+Use in civil actions 
+Accessing PCII: Only authorized federal, state, and local government employees or government contracted personnel who are trained and certified in the strict safeguarding and handling requirements, have a need-to-know, have homeland security responsibilities, and sign a Non-Disclosure Agreement (non-federal employees only) may access PCII.
+
+Marking PCII: Only the PCII Program Office or the PCII Program Manager Designees may mark information as PCII and assign a submission identification number. To ensure proper handling and safeguarding from disclosure:
+
+PCII documents include a PCII Program Green Cover Sheet outlining protection requirements 
+PCII is marked with “PROTECTED CRITICAL INFRASTRUCTURE INFORMATION” in the headers and footers to alert users of the information’s status and protection requirements 
+PCII is labeled with a unique identification number
+The PCII marking remains until either the PCII Program Office determines the information no longer qualifies for PCII protection or the submitter requests the removal of protections. PCII is normally labeled with the following statement by the PCII Program Office to ensure the material is safeguarded and handled appropriately.
+
+This document contains Protected Critical Infrastructure Information. In accordance with the provisions of the Critical Infrastructure Information Act, 6 U.S.C. §§ 131 et seq., it is exempt from release under the Freedom of Information Act (5 U.S.C. § 552) and similar state and local disclosure laws. Unauthorized release may result in criminal and administrative penalties. PCII must be safeguarded and shared in accordance with the Critical Infrastructure Information Act, 6 U.S.C. §§ 131 et seq., the implementing regulation, 6 CFR part 29 and PCII Program requirements.
+
+Change in PCII Status: In some cases, the PCII Program Manager may discover information validated as PCII was at the time of validation shared previously in the public domain (See 6 CFR part 29 for greater explanation). Under such circumstances, the PCII Program Manager will review the submission’s PCII status and can remove the PCII protections.
+
+The submitter may also, at any time after submission of critical infrastructure information, request in writing the submitted information no longer receive PCII protections. The PCII Program Manager will follow the submitter's directions under the following circumstances:
+
+Withdrawal of a Submission: If a submitter requests in writing to withdraw the submission, and the information is not yet validated, the PCII Program Office will return all such information to the submitting person/entity or destroy the information, depending on the written request of the submitter. 
+Change of Status: If the submitter requests in writing the removal of PCII protections on a validated submission, the PCII Program Office will comply. In this case, the PCII Program Office will return it to the submitter or destroy the information, depending on the submitter’s instructions and availability.  
+If the PCII Program Manager determines the information should not retain its PCII protections or the submitter requests the removal of the protections the PCII Program Office will:
+
+Notify the submitter of the change in status 
+Remove the PCII markings from the information 
+Change the designation of the information in the PCII Management System (PCIIMS)
+Oversight and Compliance: All individuals authorized access to PCII are responsible for safeguarding the material when in their possession or control. Participating government entities, in partnership with the PCII Program Office, ensure individuals adhere to safeguarding and handling requirements. The PCII Program Office conducts oversight of the PCII Program through Technical Assistance Visits (TAVs). 
+
+PCII accredited government entities must designate a PCII Officer to provide oversight and manage employees with access to PCII in their organization. The PCII Program Office works with the PCII Officer to ensure PCII is used appropriately by reviewing the self-inspections and conducting TAVs as necessary. 
+
+The PCII Officer’s administration of the PCII Program in the entity consists of:
+
+Monitoring ongoing compliance with PCII Program requirements 
+Supervising PCII Authorized Users within the entity 
+Performing periodic self-inspections 
+Investigating any alleged or actual misuse or compromise of PCII 
+Reporting any misuse or mishandling of PCII 
+In coordination with DHS and CISA’s Office of Security, Office of the General Counsel, and Office of Chief Counsel, the PCII Program Manager establishes and implements procedures for reporting and investigating the suspected loss, misplacement, or unauthorized disclosure of PCII.
+
+PCII Program Submission and Training Procedures
+Submit Critical Infrastructure Information (CII) For PCII Protection
+How to submit physical and cyber Critical Infrastructure Information for protection under the CII Act of 2002 from disclosure and what kind of information can be submitted.
+
+PCII Authorized User Training
+How to register and conduct PCII Authorized User training.
+
+PCII FAQs
+Frequently asked questions regarding the Protected Critical Infrastructure Information (PCII) Program.
+
+PCII Program Documents
+Critical Infrastructure Information Act of 2002 as Amended
+(PDF, 71.55 KB )
+6 CFR part 29, “Procedures for Handling Critical Infrastructure Information”; Final Rule - December 2022
+(PDF, 265.52 KB )
+PCII Program Procedures Manual
+(PDF, 1.70 MB )
+PCII Program Fact Sheet
+(PDF, 207.44 KB )
+PCII eSubmission User Guide
+(PDF, 2.96 MB )
+Express and Certification Statement
+(PDF, 525.95 KB )
+PCII Green Coversheet
+(PDF, 134.22 KB )
+PCII Management System (PCIIMS) Fact Sheet
+(PDF, 121.81 KB )
+How To Email PCII
+(PDF, 521.46 KB )
+Safeguarding PCII
+(PDF, 1.27 MB )
+Unofficial Redline of PCII Final Rule – October 2022
+(PDF, 420.04 KB )
+
+Contact
+To learn more about how the PCII Program can support your organization’s homeland security efforts, please contact PCII-Assist@cisa.dhs.gov.

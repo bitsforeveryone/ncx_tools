@@ -1,0 +1,69 @@
+Source - https://www.cisa.gov/news-events/news/risk-based-approach-national-cybersecurity
+
+A Risk-based Approach to National Cybersecurity
+
+Released January 14, 2021
+Revised November 01, 2021
+
+RELATED TOPICS: CYBERSECURITY BEST PRACTICES, CYBER THREATS AND ADVISORIES,
+
+Authored By: Bob Kolasky, CISA Assistant Director for the National Risk Management Center
+
+NRMC to lead CISA effort focused on identifying and reducing systemic cyber risk
+The importance of cyber good practices and implementation of widely endorsed security controls to safeguard digital enterprises cannot be overstated. Whether it’s ransomware impacting schools and hospitals or data exfiltration compromising Americans’ sensitive information, the impact of cybersecurity – or cyber insecurity – on our daily lives is more visible than ever before. The events of the past few months with an advanced persistent threat (APT) actor compromising the SolarWinds Orion platform and engaging in widespread abuse of commonly used authentication mechanisms is only further testament to this reality.
+
+We live in a connected world with a vast sea of information around cyber threats, vulnerabilities, and incidents washing over us daily. In response, we have steadily deepened the partnership between government and industry to share these data points for everyone’s benefit and to provide tools to increase visibility and to assist with response and remediation efforts.
+
+This is important work, and sharing information holistically is appropriately an area where the Cybersecurity and Infrastructure Security Agency (CISA) has invested heavily in maturing the capability we bring to bear for our public and private sector partners.
+
+However, information sharing alone will never be a silver bullet. Reducing shared cyber risk necessitates an evolved approach. It requires using the existing efforts around vulnerability management, threat detection, and network defense as a springboard for connecting the relationship between threat, vulnerability, and consequence with actionable metrics that drive decision making.
+
+Last year, I wrote in the foreword for the National Association of Corporate Directors Handbook on Cyber Risk about the importance of cyber risk metrics:
+
+ 
+
+While not an easy endeavor by any means, efforts need to be made to evaluate the cyber impact against traditional … metrics and then push the analysis further upstream to evaluate incidents and controls in terms of their impact on … outcomes. This new thinking will help us to better evaluate the merit of additional investments in cyber controls and other forms of risk management.
+
+ 
+
+Introducing the Systemic Cyber Risk Reduction Venture
+
+Using enterprise risk management best practices will be a focus for CISA in 2021, and today the National Risk Management Center (NRMC) is launching a Systemic Cyber Risk Reduction Venture to organize our work to reduce shared risk to the Nation’s security and economic security. We anticipate three overarching lines of effort:
+
+Build the Underlying Architecture for Cyber Risk Analysis to Critical Infrastructure
+
+The critical infrastructure community is underpinned by a dependent web of hardware, software, services, and other connected componentry.
+
+Take the example of the Supply Water National Critical Function. There is a logical hierarchy of the way functions (e.g., Supply Water), sub-functions (e.g., Treat Contamination), entities (e.g., municipal water utility), assets (e.g., specific reservoir operated by the water utility), enabling componentry (e.g., Internet connected valves at the reservoir), and component-level vulnerabilities (e.g., an exploitable industrial control systems flaw within the valve) interact and depend on one another for provisioning.
+
+However, there is currently no “engine” to capture all these data layers in a dynamic analytic tool. Working with Sector Specific Agencies such as the Environmental Protection Agency, the NRMC is currently building a National Critical Functions Risk Architecture to be that engine. Though this is a complex and challenging endeavor, in time, this system of systems will enable us to consistently bring data and insight to bear to answer key cyber risk management questions based on an understanding of potential impact.
+
+Ultimately, cyber risk needs to be measured at a national level in terms of loss of functionality. What is the likelihood that a cyber incident can degrade a system in such a way that a function cannot be delivered?  And, if that function is down, what is the impact in terms of core priorities such as safety, security, and economic competitiveness? How do we ensure that cyber incidents cannot cause national security impacts? For questions like these, the National Critical Functions Risk Architecture will grow modularly to illuminate how cyber risk can eventually manifest itself in terms of functional consequence to critical infrastructure at scale. It will enable more targeted, prioritized, and strategic risk mitigation efforts and support community-wide activity around better understanding continuity of the economy resilience.
+
+In 2021, we plan to roll out an Initial Operating Capability for this Risk Architecture and utilize it in shared cyber decision-making at the national level. 
+
+Cyber Risk Metric Development
+
+Supporting efforts to better understand the impact of cyber risk across the critical infrastructure community will require developing usable metrics to quantify cyber risk in terms of functional loss. There’s no need to get bogged down with Greek equations with decimal place-level specificity. Metrics that provide even directional or comparative indicators are enormously helpful.
+
+As I mentioned earlier, the goal is to better understand the relationship between threat, vulnerability, and consequence on critical functions with more precision than before. And to bring that thinking into cost-benefit analysis for mitigating risks. For that you need metrics.
+
+The emergence of security ratings has driven cyber risk quantification as a way to calculate and measure cyber risk exposure. These security ratings provide a starting point for companies’ cybersecurity capabilities and help elevate cyber risk to board decision making. Entities can also use security ratings alongside strategic risk metrics to align cyber scenarios with material business exposure; rollup cyber risks with financial exposure to inform risk management decisions; and measure improvement of cyber risk reduction over time. This kind of work needs to happen in the boardroom and also amongst national security leaders.
+
+Our goal is to build off these existing efforts, bring these partners into the fold, and welcome others who are eager to add value to these important discussions with the purpose of attaching cyber metrics into the national security decision making space. 
+
+We’ll kick off a scoping effort in the coming months, start with narrow and achievable goals, and expand from there.
+
+Promoting Tools to Address Concentrated Sources of Cyber Risk
+
+Central to our venture to reduce systemic cyber risk is finding concentrated sources of risk that, if mitigated, provide heightened risk management bang for the buck if addressed.
+
+An example is software risk. We’ve seen how an insecure software supply chain and increasing reliance on open source libraries can expose us to the risk of a “digital pandemic” of sorts – where the ubiquity of coding flaws across connected systems creates an opportunity for cascading or correlated impact to National Critical Functions. This risk is no longer hypothetical. Zero-day flaws in the vulnerable Treck TCP/IP software library identified in 2020 opened up millions of IoT devices across numerous sectors and industries to be remotely exploit. Relatedly, the SolarWinds Orion cyber campaign has highlighted how tools that typically leverage a significant number of highly privileged accounts and access to perform normal business functions can themselves actually become adversarial attack vectors if insufficiently hardened. 
+
+Accordingly, we’ve prioritized software assurance as an area where we can address systemic risk. Over the last two years, we’ve worked through a public-private Information and Communications Technology (ICT) Supply Chain Risk Management Task Force to identify supply chain threats, including those derived from software, and develop guidance and tools to help ICT companies and their customers, including the Federal government, reduce risk from software supply chains.
+
+CISA aims to transition our Task Force work for use across the critical infrastructure community in the year ahead, working closely with other federal partners who have been active in the software assurance and software bill of materials (SBOM) space. We’ll explore other ways to reduce software risk as well, including development of innovative solutions we are funding from the National Laboratories. 
+
+The Way Forward
+
+Our mission demands that we better understand and address systemic cyber risk. The steady drumbeat of the importance of cyber essentials must be complemented with a more advanced understanding of how cyber risk manifests itself in an interconnected world – this means both understanding the interconnection and developing high leverage solutions. CISA, via the National Risk Management Center’s collaborative approach, looks forward to working with the critical infrastructure and cyber research community to make progress on this important Venture. 

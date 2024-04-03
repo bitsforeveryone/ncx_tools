@@ -1,0 +1,68 @@
+Source - https://www.cisa.gov/topics/critical-infrastructure-security-and-resilience/critical-infrastructure-sectors
+Critical Infrastructure Sectors
+
+There are 16 critical infrastructure sectors whose assets, systems, and networks, whether physical or virtual, are considered so vital to the United States that their incapacitation or destruction would have a debilitating effect on security, national economic security, national public health or safety, or any combination thereof. Presidential Policy Directive 21 (PPD-21): Critical Infrastructure Security and Resilience advances a national policy to strengthen and maintain secure, functioning, and resilient critical infrastructure. This directive supersedes Homeland Security Presidential Directive 7.
+
+Critical Infrastructure Sectors
+
+Chemical Sector
+DHS was identified as the Chemical Sector Risk Management Agency (SRMA) in Presidential Policy Directive (PPD) 21. CISA performs the Chemical Sector SRMA responsibilities on behalf of DHS. CISA leads the Chemical Sector’s public-private partnership and works with companies to develop tools and resources that enhance the sector’s security and resilience.
+
+
+Commercial Facilities Sector
+The Commercial Facilities Sector protects spaces open to the general public against coordinated attacks. CISA offers strategic direction across eight subsectors to improve security and resilience in these locations.
+
+Communications Sector
+The communications sector has evolved into a complex industry of terrestrial, satellite, and wireless systems with many interdependencies. CISA works with private sector stakeholders to implement the risk management framework to protect all aspects of the communication sector.
+
+
+Critical Manufacturing Sector
+CISA identifies, assesses, prioritizes, and protects manufacturing industries with national significance to prevent and mitigate the impact of man-made or natural disasters.
+
+
+Dams Sector
+With more than 90,000 dams in the U.S., the Dams Sector delivers critical water retention and control services. CISA works with sector partners to protect assets from natural disasters, as well as human-caused and technological events.
+
+
+Defense Industrial Base Sector
+Over 100,000 companies and subtractors supply materials, services, and facilities to the U.S. military. The Defense Industrial Base Sector helps mobilize, deploy, and sustain these military operations around the world.
+
+
+Emergency Services Sector
+Supporting millions of skilled personnel with physical and cyber resources, the Emergency Services Sector helps save lives, protect property and the environment, and assist in recovery efforts after emergencies and disasters.
+
+
+Energy Sector
+The energy sector protects a multifaceted web of electricity, oil, and natural gas resources and assets to maintain steady energy supplies and ensure the overall health and wellness of the nation.
+
+
+Financial Services Sector
+By protecting financial institutions of all sizes from large-scale power outages, natural disasters, and cyber-attacks, the Financial Services Sector protects your financial assets as well as your ability to access and utilize those assets.
+
+
+Food and Agriculture Sector
+The food and agriculture sector, including farms, restaurants, and food manufacturing, processing, and storage facilities, is almost entirely privately-owned. CISA provides guidance, resources, and collaboration with interdependent sectors to protect against a range of risks.
+
+
+Government Facilities Sector
+Federal, state, local and tribunal government buildings and spaces have differing accessibility restrictions and purposes. The Government Facilities Sector helps these facilities identify their unique risk factors and protect against potential attacks or issues.
+
+
+Healthcare and Public Health Sector
+The Healthcare and Public Health Sector focuses on population health and provides the response and recovery actions needed after large-scale hazards such as terrorism, infection disease, and natural disasters.
+
+
+Information Technology Sector
+The nation’s growing dependency on information technology has made the Information Technology Sector mission – to identify and protect against cyber threats and vulnerabilities— more complex and important in the 21st century.
+
+
+Nuclear Reactors, Materials, and Waste Sector
+From the power reactors that provide electricity to millions of Americans, to the medical isotopes used to treat cancer patients, America has an extensive civilian nuclear infrastructure.
+
+
+Transportation Systems Sector
+Moving millions of people and goods across the country every day, the transportation systems sector is exposed to a limitless number of threats and risks. CISA works to protect these systems and ensure a continuity of operations.
+
+
+Water and Wastewater Systems
+Access to clean, healthy water is a requirement for all human activity. Protecting the systems that provide water is of vital importance to the stability and health of the nation and is the mission of the Water and Wastewater Systems Sector.

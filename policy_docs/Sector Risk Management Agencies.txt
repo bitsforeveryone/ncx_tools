@@ -1,0 +1,31 @@
+Source - https://www.cisa.gov/topics/critical-infrastructure-security-and-resilience/critical-infrastructure-sectors/sector-risk-management-agencies
+
+Sector Risk Management Agencies
+
+Each critical infrastructure sectors has unique characteristics, operating models, and risk profiles. As such, each SRMA leverages their particular knowledge and expertise to:
+
+Coordinate and collaborate with DHS and other relevant Federal departments and agencies, with critical infrastructure owners and operators, where appropriate with independent regulatory agencies, and with SLTT entities, as appropriate, to implement PPD-21.
+Serve as a day-to-day Federal interface for the dynamic prioritization, collaboration, and coordination of sector-specific activities.
+Carry out incident management responsibilities consistent with statutory authority and other appropriate policies, directives, or regulations.
+Provide, support, or facilitate technical assistance and consultations for that sector to identify vulnerabilities and help mitigate incidents, as appropriate.
+Support the Secretary of Homeland Security’s statutory reporting requirements by providing, on an annual basis, sector-specific critical infrastructure information.
+For more details on how PPD-21 directs SRMAs, please see “Appendix B: Roles, Responsibilities, and Capabilities of Critical Infrastructure Partners and Stakeholders” in the National Infrastructure Protection Plan (NIPP) 2013.
+
+Each sector has a designated Sector Risk Management Agency (SRMA) as identified in PPD-21 and listed below:
+
+Chemical Sector – Department of Homeland Security
+Commercial Facilities Sector – Department of Homeland Security
+Communications Sector – Department of Homeland Security
+Critical Manufacturing Sector – Department of Homeland Security
+Dams Sector – Department of Homeland Security
+Defense Industrial Base Sector – Department of Defense
+Emergency Services Sector – Department of Homeland Security
+Energy Sector – Department of Energy
+Financial Services Sector – Department of the Treasury
+Food and Agriculture Sector – Department of Agriculture and Department of Health and Human Services
+Government Facilities Sector – Department of Homeland Security and General Services Administration
+Healthcare and Public Health Sector – Department of Health and Human Services
+Information Technology Sector – Department of Homeland Security
+Nuclear Reactors, Materials, and Waste Sector – Department of Homeland Security
+Transportation Systems Sector – Department of Homeland Security and Department of Transportation
+Water and Wastewater Systems Sector – Environmental Protection Agency

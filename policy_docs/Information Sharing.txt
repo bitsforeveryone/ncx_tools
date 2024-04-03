@@ -1,0 +1,61 @@
+Source - https://www.cisa.gov/topics/cyber-threats-and-advisories/information-sharing
+
+Information Sharing
+
+Information sharing is the key to preventing a wide-spread cyber-attack. CISA develops partnerships to rapidly share critical information about cyber incidents.
+
+Overview
+Information sharing is essential to furthering cybersecurity for the nation. Isolating cyber attacks and preventing them in the future requires the coordination of many groups and organizations. By rapidly sharing critical information about attacks and vulnerabilities, the scope and magnitude of cyber events can be greatly decreased. With the right plans, processes, and connections in place, information sharing can be seamless step of incident response procedures and a first defense against wide-spread cyber attacks.
+
+CISA’s Role
+As the lead federal department for the protection of critical infrastructure and the furthering of cybersecurity, CISA has developed and implemented numerous information sharing programs. Through these programs, CISA develops partnerships and shares substantive information with the private sector. CISA also shares information with state, local, tribal, and territorial governments and with international partners, as cybersecurity threat actors are not constrained by geographic boundaries.
+
+Featured Content and Programs
+Automated Indicator Sharing (AIS)
+AIS enables real-time exchange of machine-readable cyber threat indicators and defensive measures to protect AIS participants and reduce the prevalence of cyberattacks.
+
+Joint Cyber Defense Collaborative (JCDC)
+CISA established the Joint Cyber Defense Collaborative (JCDC) to unify cyber defenders worldwide. The team proactively gathers, analyzes, and shares actionable cyber risk info to enable synchronized, holistic cyber planning, defense, and response. 
+
+Coordinated Vulnerability Disclosure Process
+CISA's CVD program coordinates the remediation and public disclosure of newly identified cybersecurity vulnerabilities in products and services with the affected vendor(s). 
+
+Information Sharing and Analysis Organizations (ISAOs)
+Information on past ISAO meetings, future engagements, published Federal Register Notices, public comments, and other engagement materials.
+
+Enhanced Cybersecurity Services
+Enhanced Cybersecurity Services (ECS) is a voluntary information sharing program that assists owners and operators of critical infrastructure in enhancing the protection of their systems from unauthorized access, exploitation, or data exfiltration.
+
+Joint Ransomware Task Force
+The Joint Ransomware Task Force (JRTF) serves as the central body for coordinating an ongoing nationwide campaign against ransomware attacks in addition to identifying and pursuing opportunities for international cooperation.
+
+Information Sharing Training
+CISA offers a variety of trainings to help implement information sharing practices and benefit from their practical applications.
+
+VIEW ALL CYBERSECURITY TRAININGS
+
+Professors in Practice - Session 2: Cyber Threat Intelligence: Practical Applications and Impact of Information Sharing
+AUG 12, 2022 | SEMINAR/WORKSHOP | VIRTUAL/ONLINE
+Dr. JD Work will discuss current cyber intelligence communities, how they operate and share information, and how they are evolving and shifting operations to meet new and future demands.
+Information Sharing Services
+CISA provides services that connect you with a community dedicated to enhancing cybersecurity through information sharing.
+
+VIEW MORE SERVICES
+
+Shared Cybersecurity Services (SCS)
+Shared Cybersecurity Services (SCS) is a portfolio of CISA-funded contracts that provides federal civilian agencies, state fusion centers, and select information sharing and analysis centers with no-cost access to commercial Cyber Threat Intelligence (CTI) and services.
+Information Sharing Resources and Publications
+CISA offers guidance, tools, and resources to help understand how information sharing helps secure the nation's cybersecurity. 
+
+Cybersecurity Information Sharing Act of 2015
+As mandated by the Cybersecurity Information Sharing Act of 2015, the Department certified the operability of AIS in March 2016 and released guidance to help non-federal entities share cyber threat indicators with the Federal Government.
+
+AIS Fact Sheet
+CISA’s' free Automated Indicator Sharing (AIS) program enables organizations to share and receive machine-readable cyber threat indicators and defensive measures in real time to monitor and defend their networks against relevant known threats.
+
+National Information Exchange Model (NIEM) Cyber Domain
+NIEM is a common vocabulary that enables efficient information exchange across diverse public and private organizations. NIEM can save time and money by providing consistent, reusable data terms and definitions, and repeatable processes.
+
+VIEW ALL INFORMATION SHARING RESOURCES
+Share Indicators and Defense Measures
+Submit cyber threat indicators and defensive measures with DHS and the Federal Government (includes sharing under the Cybersecurity Information Sharing Act of 2015).

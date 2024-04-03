@@ -1,0 +1,34 @@
+Source - https://www.cisa.gov/resources-tools/resources/national-cyber-incident-response-plan-ncirp
+
+The National Cyber Incident Response Plan (NCIRP)
+
+Revision Date October 20, 2023
+RELATED TOPICS: INFORMATION SHARING, PARTNERSHIPS AND COLLABORATION, CYBER THREATS AND ADVISORIES
+NOTICE: The NCIRP is in the process of being updated. See the NCIRP 2024 section below for further details. Until the update is released, the 2016 NCIRP remains in effect.
+
+The National Cyber Incident Response Plan (NCIRP) describes a national approach to handling significant cyber incidents. It addresses the important role that the private sector, state and local governments, and multiple federal agencies play in responding to incidents. It also describes how the actions of all these stakeholders fit together to provide an integrated response. The NCIRP reflects and incorporates lessons learned from exercises, real world incidents, and policy and statutory updates including Presidential Policy Directive/PPD-41 – US Cyber Incident Coordination (and its annex) and the National Cybersecurity Protection Act of 2014.
+
+The NCIRP also serves as the Cyber Annex to the Federal Interagency Operational Plan (FIOP) that built upon the National Planning Frameworks and the National Preparedness System.
+
+This plan applies to cyber incidents that are likely to result in demonstrable harm to the national security interests, foreign relations, or economy of the United States or to the public confidence, civil liberties, or public health and safety of the American people. 
+
+The current version of the National Cyber Incident Response Plan was released in December 2016 and is available here:
+
+National Cyber Incident Response Plan (PDF)
+Frequently Asked Questions (PDF)
+NCIRP 2024
+CISA is leading an effort to update the National Cyber Incident Response Plan (NCIRP) by the end of 2024, as directed in the 2023 National Cybersecurity Strategy, “. . . to ensure that the breadth of our nation’s capacity is effectively coordinated and leveraged in reducing the impact of cyber incidents.” CISA will work hand in hand with our public and private sector partners including interagency partners, sector risk management agencies (SRMAs), and regulators to build upon the successes of the first inaugural plan and incorporate valuable lessons learned during the last seven years.
+
+The NCIRP was first published in 2016 and serves as the nation’s framework for coordinated response to significant cyber incidents. Since that time, the cybersecurity threat landscape and national response ecosystem have changed dramatically, resulting in a growing need to update this foundational document. Through the NCIRP 2024 planning effort, CISA will address many of these changes, while making the NCIRP more inclusive of non-federal stakeholders and establishing a foundation for continued evolution of the nation’s capability to collectively respond to and manage significant cyber incidents. As the nation’s cyber defense agency and the national coordinator for critical infrastructure security, CISA will ensure that NCIRP 2024 is grounded in the following principles:
+
+Unification. National cyber incident response requires deeply committed partnerships across all levels of government, industry, and with our international partners. The NCIRP 2024 will bring together a diverse community of stakeholders to collaborate towards a future defined by a culture of collaboration and scalable approaches that yield measurably improved results.
+Shared Responsibility. Cybersecurity is a team sport with players across the cybersecurity ecosystem playing unique roles in national cyber incident response. The NCIRP 2024 will challenge traditional ways of working with our partners to move toward more forward-leaning, action-oriented collaboration to realize the full potential of each partners’ authorities, capabilities, and expertise.
+Learning from the Past. The past eight years have seen cyber incidents of unprecedented scale, impact, and sophistication. The NCIRP 2024 will be grounded in our collective lessons from past cybersecurity incidents to drive improvements and enable advances to national cyber incident response coordination efforts.
+Keeping Pace with Evolutions in Cybersecurity. The cybersecurity landscape is a complex ever-evolving environment. The NCIRP 2024 will build processes mindful of this complexity to ensure the cybersecurity community stays ahead of inevitable changes. This approach reflects a shift to clearly defining intended outcomes and becoming more proactive. It showcases our commitment to agility in a sophisticated cybersecurity landscape by remaining vigilant and acting quickly as a collective whole. 
+Contact the Team
+To learn more about NCIRP 2024, email us at ncirp@cisa.dhs.gov
+
+Resource Materials
+NCIRP 2024 Fact Sheet (PDF)
+National Cybersecurity Strategy (PDF)
+National Cybersecurity Strategy Implementation Plan (PDF)

@@ -1,0 +1,70 @@
+Source - https://www.cisa.gov/topics/critical-infrastructure-security-and-resilience
+
+Critical Infrastructure Security and Resilience
+
+CISA provides guidance to support state, local, and industry partners in identifying critical infrastructure needed to maintain the functions Americans depend on daily.
+
+Overview
+Critical Infrastructure are those assets, systems, and networks that provide functions necessary for our way of life. There are 16 critical infrastructure sectors that are part of a complex, interconnected ecosystem and any threat to these sectors could have potentially debilitating national security, economic, and public health or safety consequences. 
+
+CISA’s Role
+CISA provides guidance to support state, local, and industry partners in identifying the critical infrastructure sectors and the essential workers needed to maintain the services and functions Americans depend on daily.
+
+Chemical Security
+CISA strives to prevent the misuse of chemicals in a terrorist attack. Securing chemical sector infrastructure is crucial to our economic prosperity, national security, and public health and safety.
+
+Extreme Weather and Climate Change
+CISA protects our critical infrastructure from strengthening extreme weather events through expert leadership, coordination, and guidance.
+
+Resilience Services
+CISA leads the national effort to enhance the resilience of the critical infrastructure Americans rely on every hour of every day.
+
+Federal Facility Security
+The Interagency Security Committee's (ISC) mandate is to enhance the quality and effectiveness of security in and the protection of buildings and nonmilitary Federal facilities in the United States.
+
+
+16 Critical Infrastructure Sectors
+There are 16 critical infrastructure sectors that are part of a complex, interconnected ecosystem.
+
+
+Whistleblower Retaliation
+If you work in any of these Critical Infrastructure Sectors and you feel you’ve been retaliated against for raising concerns to your employer or regulators about critical infrastructure, you may contact the U.S. Department of Labor Occupational Safety and Health Administration (OSHA).  OSHA’s Whistleblower Protection Program enforces over 20 anti-retaliation statutes that may protect your report. More information can be found at the link below. Complaints with OSHA can be filed online.
+
+
+Critical Infrastructure Exercises
+CISA conducts cyber and physical security exercises with government and industry partners to enhance security and resilience of critical infrastructure. These exercises provide stakeholders with effective and practical mechanisms to identify best practices, lessons learned, and areas for improvement in plans and procedures. These exercises may also inform future planning, technical assistance, training, and education efforts.
+
+CISA works with partners to design and conduct exercises that range from small-scale, discussion-based exercises to large-scale, operations-based exercises. CISA also offers a wide portfolio of downloadable CISA Tabletop Exercise Packages (CTEPs) to serve as an off-the-shelf solution for a variety of stakeholders’ exercise needs.
+
+Exercise Planning and Conduct Support Services
+INCREASE YOUR RESILIENCE
+Contact: cisa.exercises@cisa.dhs.gov
+CISA provides end-to-end exercise planning and conduct support to assist stakeholders in examining their cybersecurity and physical security plans and capabilities.
+
+
+Cybersecurity Scenarios
+FEB 27, 2023 | PUBLICATION, EXERCISE, TRAINING
+Cybersecurity Scenario CTEPs cover various cyber threat vector topics such as ransomware, insider threats, and phishing.
+
+
+Physical Security Scenarios
+FEB 02, 2023 | PUBLICATION, EXERCISE, TRAINING
+The physical security Situation Manuals cover topics including active shooters, vehicle ramming, improvised explosive devices (IEDs), unmanned aerial systems (UASs), and more.
+
+
+Cyber-Physical Convergence Scenarios
+FEB 02, 2023 | PUBLICATION, EXERCISE, TRAINING
+Convergence CTEPs are those specifically designed to discuss the physical impacts resulting from a cyber threat vector, or cyber impacts resulting from a physical threat vector.
+
+
+CISA Tabletop Exercise Package Documentation
+EXERCISE | OTHER
+CTEP package documentation allows users to leverage pre-built templates to develop a full understanding of roles and responsibilities for exercise planners, facilitators/evaluators, and participants. Your exercise planning team can fully develop your own tabletop exercise.
+
+Cyber Storm Cyber Exercise Series
+EXERCISE | OTHER
+Cyber Storm is CISA’s biennial national cyber exercise series. The nation's most expansive cybersecurity exercise, Cyber Storm is an opportunity for the private sector to come together with all levels of government to address cyber response as a whole community.
+
+Tabletop the Vote 
+EXERCISE | OTHER
+Tabletop the Vote is CISA’s yearly national election security exercise. Federal partners, state and local election officials, and vendors come together to identify and share best practices and areas for improvement related to election security.
