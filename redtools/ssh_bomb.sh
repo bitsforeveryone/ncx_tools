@@ -25,6 +25,7 @@ while IFS=',' read -r username password || [ -n "$username" ]; do
     # Read IP addresses file line by line
     while IFS= read -r ip || [ -n "$ip" ]; do
         # SSH using the current combination of credentials and IP address and execute the command
+	ip="${ip// /}"
         sshpass -p "$password" ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no "$username"@"$ip" "$command" &
     done < "$ip_file"
 done < "$credentials_file"

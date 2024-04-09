@@ -22,6 +22,7 @@ fi
 
 # Read IP addresses file line by line
 while IFS= read -r ip || [ -n "$ip" ]; do
+    ip="${ip// /}"
     # SSH using the private key and IP address and execute the command
     ssh -o ConnectTimeout=10 -i "$private_key" -o StrictHostKeyChecking=no "$ip" "$command" &
 done < "$ip_file"
