@@ -10,7 +10,46 @@ from typing import Optional
 import base64  
 import sys
 sys.path.insert(0, ".")
-from ncx_db import ip_range_parser
+
+
+def ip_range_parser(ip_range_string):
+    #supported formats:
+    #192.168.*.3
+    #192.168.1.*
+    #192.168.1-225.*
+    octets = ip_range_string.split(".")
+    if len(octets) != 4:
+        return None
+    if octets[0] == "*":
+        octets[0] = "0-255"
+    if octets[1] == "*":
+        octets[1] = "0-255"
+    if octets[2] == "*":
+        octets[2] = "0-255"
+    if octets[3] == "*":
+        octets[3] = "0-255"
+    octets_possible = []
+    for octet in octets:
+        if "-" in octet:
+            octet_range = octet.split("-")
+            if len(octet_range) != 2:
+                return None
+            octets_possible.append(list(range(int(octet_range[0]), int(octet_range[1]) + 1)))
+        else:
+            octets_possible.append([int(octet)])
+    ips = []
+    if len(octets_possible[0]) * len(octets_possible[1]) * len(octets_possible[2]) * len(octets_possible[3]) > 10000:
+        print("Too many IPs to scan, please narrow your range")
+        return None
+    for octet0 in octets_possible[0]:
+        for octet1 in octets_possible[1]:
+            for octet2 in octets_possible[2]:
+                for octet3 in octets_possible[3]:
+                    ips.append(ipaddress.ip_address(str(octet0) + "." + str(octet1) + "." + str(octet2) + "." + str(octet3)))
+    return ips
+
+
+
 engine = None
 metadata = None
 conn = None
