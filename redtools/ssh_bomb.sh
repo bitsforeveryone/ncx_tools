@@ -27,7 +27,7 @@ while IFS=',' read -r username password || [ -n "$username" ]; do
         # SSH using the current combination of credentials and IP address and execute the command
 	    ip="${ip// /}"
         #print if the command ran successfully by checking the exit status, 
-        sshpass -p "$password" ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no "$username"@"$ip" "$command"; if [ $? -eq 0 ]; then echo "Command $? ran successfully on $ip with $username:$password"; fi &
+        { sshpass -p "$password" ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no "$username"@"$ip" "$command"; if [ $? -eq 0 ]; then echo "Command $? ran successfully on $ip with $username:$password"; fi } &
     done < "$ip_file"    
 done < "$credentials_file"
 wait
